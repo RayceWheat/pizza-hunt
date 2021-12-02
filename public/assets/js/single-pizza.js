@@ -15,11 +15,12 @@ function getPizza() {
   const pizzaId = searchParams.get('id');
 
   // get pizzaInfo
-  fetch(`/api/pizzas${pizzaId}`)
+  fetch(`/api/pizzas/${pizzaId}`)
     .then(response => {
-      // check for a 4xx or 5xx error from server
+      console.log(response);
       if (!response.ok) {
-        throw new Error({ message: 'Something went wrong.' });
+        console.log('hi');
+        throw new Error({ message: 'Something went wrong!' });
       }
 
       return response.json();
@@ -27,7 +28,7 @@ function getPizza() {
     .then(printPizza)
     .catch(err => {
       console.log(err);
-      alert('Cannont find a pizza with this id. Taking you back.');
+      alert('Cannot find a pizza with this id! Taking you back.');
       window.history.back();
     });
 }
@@ -127,7 +128,7 @@ function handleNewCommentSubmit(event) {
     })
     .then(commentResponse => {
       console.log(commentResponse);
-      location.reload();
+      // location.reload();
     })
     .catch(err => {
       console.log(err);
@@ -155,14 +156,14 @@ function handleNewReplySubmit(event) {
   fetch(`/api/comments/${pizzaId}/${commentId}`, {
     method: 'PUT',
     headers: {
-      Aceept: 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(formData)
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error('Something went wrong.');
+        throw new Error('Something went wrong!');
       }
       response.json();
     })
